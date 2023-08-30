@@ -3,7 +3,7 @@
  * SDK version: 5.4.0
  * CLI version: 2.12.0
  *
- * Generated: Tue, 29 Aug 2023 14:17:40 GMT
+ * Generated: Wed, 30 Aug 2023 04:54:39 GMT
  */
 
 var APP_com_domain_app_player3 = (function () {
@@ -6684,11 +6684,11 @@ var APP_com_domain_app_player3 = (function () {
     }
   }
 
-  // Import your custom media player, or integrate it with LightningJS
-
+  // import { Lightning } from "@lightningjs/sdk";
   class App extends Lightning$1.Component {
     static _template() {
       return {
+        // Video element
         Video: {
           x: 0,
           y: 0,
@@ -6696,21 +6696,22 @@ var APP_com_domain_app_player3 = (function () {
           // Set to your desired width
           h: 1080,
           // Set to your desired height
-          // Create a custom media player element
-          type: AAMPMediaPlayer,
-          // Pass any necessary configuration or options to the player
-          options: {
-            url: "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8"
+          type: Lightning$1.components.VideoItem,
+          // Use the appropriate Lightning video component
+          signals: {
+            // Load the video when the component is added to the stage
+            init: "_loadVideo"
           }
         }
       };
     }
-    _init() {
-      // Retrieve a reference to your custom media player element
-      this._mediaPlayer = this.tag("Video");
 
-      // Initialize and start playback
-      this._mediaPlayer.init();
+    // Function to load the video
+    _loadVideo() {
+      const url = "http://devimages.apple.com/iphone/samples/bipbop/bipbopall.m3u8";
+
+      // Set the video source
+      this.tag("Video").src = url;
     }
   }
 
